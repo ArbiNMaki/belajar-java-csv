@@ -71,4 +71,22 @@ public class CSVTest {
 
         System.out.println(writer.getBuffer().toString());
     }
+
+    @Test
+    void testCreateCSVWithFormat() throws IOException {
+        StringWriter writer = new StringWriter();
+
+        CSVFormat format = CSVFormat.TDF.builder()
+                .setHeader("First Name", "Middle Name", "Last Name", "Value")
+                .build();
+
+        CSVPrinter printer = new CSVPrinter(writer, format);
+        printer.printRecord("Arbi", "Dwi", "Wijaya", 100);
+        printer.printRecord("Bakugo", "", "Katsuki", 99);
+        printer.printRecord("Nishikino", "", "Maki", 98);
+        printer.printRecord("Kalista", "", "Wijaya", 97);
+        printer.flush();
+
+        System.out.println(writer.getBuffer().toString());
+    }
 }
